@@ -1,0 +1,49 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- 배경: 그라디언트 -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0f172a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#1e1b4b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#13192e;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4f46e5;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- 배경 -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+
+  <!-- 왼쪽 장식 아이콘 -->
+  <g opacity="0.3">
+    <circle cx="100" cy="100" r="50" fill="none" stroke="#4f46e5" stroke-width="2"/>
+    <path d="M 80 120 L 100 100 L 120 120" fill="none" stroke="#4f46e5" stroke-width="2"/>
+    <path d="M 80 80 L 100 100 L 120 80" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+  </g>
+
+  <!-- 오른쪽 장식 아이콘 -->
+  <g opacity="0.3">
+    <circle cx="1100" cy="530" r="50" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+    <path d="M 1080 510 L 1100 530 L 1120 510" fill="none" stroke="#8b5cf6" stroke-width="2"/>
+    <path d="M 1080 550 L 1100 530 L 1120 550" fill="none" stroke="#4f46e5" stroke-width="2"/>
+  </g>
+
+  <!-- 메인 텍스트 박스 -->
+  <rect x="100" y="150" width="1000" height="330" rx="20" fill="none" stroke="#4f46e5" stroke-width="3" opacity="0.5"/>
+
+  <!-- 이름 -->
+  <text x="600" y="280" font-family="'Noto Sans KR', sans-serif" font-size="140" font-weight="bold" text-anchor="middle" fill="white">
+    추경민
+  </text>
+
+  <!-- 부제 -->
+  <text x="600" y="370" font-family="'Noto Sans KR', sans-serif" font-size="60" font-weight="600" text-anchor="middle" fill="url(#textGradient)">
+    비즈니스 마케터
+  </text>
+
+  <!-- 태그라인 -->
+  <text x="600" y="430" font-family="'Noto Sans KR', sans-serif" font-size="40" text-anchor="middle" fill="#c7d2fe" opacity="0.8">
+    AI · 데이터 · 전략
+  </text>
+</svg>
