@@ -116,6 +116,28 @@
         }
         .portfolio-card:hover .portfolio-overlay { opacity: 1; }
 
+        /* ── 포트폴리오 썸네일 Shimmer 효과 ── */
+        .portfolio-thumbnail {
+            position: relative;
+            overflow: hidden;
+        }
+        .portfolio-thumbnail::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shimmer 3s infinite;
+            z-index: 1;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            50% { left: 100%; }
+            100% { left: 100%; }
+        }
+
         /* ── 그라디언트 텍스트 ── */
         .gradient-text {
             background: linear-gradient(135deg, #4f46e5 0%, #8b5cf6 100%);
@@ -227,6 +249,36 @@
             transition: opacity 0.2s, color 0.2s;
         }
         #modal-close:hover { opacity: 1; color: #818cf8; }
+
+        /* ── 모달 네비게이션 버튼 ── */
+        #modal-prev, #modal-next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(79, 70, 229, 0.5);
+            border: 1px solid rgba(79, 70, 229, 0.3);
+            color: white;
+            font-size: 1.5rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+        #modal-prev:hover, #modal-next:hover {
+            background: rgba(79, 70, 229, 0.8);
+            border-color: rgba(79, 70, 229, 0.8);
+        }
+        #modal-prev { left: 20px; }
+        #modal-next { right: 20px; }
+        #modal-prev:disabled, #modal-next:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body class="text-white">
@@ -235,8 +287,11 @@
     <div id="image-modal" role="dialog" aria-modal="true">
         <div id="modal-inner">
             <button id="modal-close" aria-label="닫기"><i class="fas fa-times"></i></button>
+            <button id="modal-prev" aria-label="이전 이미지"><i class="fas fa-chevron-left"></i></button>
             <img id="modal-img" src="" alt="포트폴리오 상세">
+            <button id="modal-next" aria-label="다음 이미지"><i class="fas fa-chevron-right"></i></button>
             <p id="modal-title"></p>
+            <p id="modal-counter" class="text-center text-gray-400 text-xs mt-2"></p>
         </div>
     </div>
 
@@ -555,8 +610,12 @@
 
                 <div class="portfolio-card bg-slate-800/50 border border-indigo-500/20 rounded-xl overflow-hidden card-hover backdrop-blur reveal reveal-delay-1"
                      onclick="openModal('image/포트폴리오 4.png','Google Apps Script 기반 자동 발주 시스템 구축')">
-                    <div class="relative overflow-hidden" style="height:200px;">
-                        <img src="image/포트폴리오 4.png" alt="자동 발주 시스템" class="w-full h-full object-cover object-top">
+                    <div class="portfolio-thumbnail relative overflow-hidden flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-slate-900 to-slate-800" style="height:200px;">
+                        <div class="text-5xl text-indigo-400"><i class="fas fa-gears"></i></div>
+                        <div class="text-center px-4 relative z-10">
+                            <p class="text-xl font-bold text-white counter" data-target="50" data-suffix="%">50%</p>
+                            <p class="text-xs text-gray-400 mt-1">업무 효율 / 오발송 90% 감소</p>
+                        </div>
                         <div class="portfolio-overlay">
                             <i class="fas fa-expand text-white text-2xl"></i>
                             <span class="text-white font-semibold text-sm">클릭하여 상세 보기</span>
@@ -576,8 +635,12 @@
 
                 <div class="portfolio-card bg-slate-800/50 border border-indigo-500/20 rounded-xl overflow-hidden card-hover backdrop-blur reveal reveal-delay-2"
                      onclick="openModal('image/포트폴리오 5.png','기술 협업 기반 고객 여정 자동화')">
-                    <div class="relative overflow-hidden" style="height:200px;">
-                        <img src="image/포트폴리오 5.png" alt="고객 여정 자동화" class="w-full h-full object-cover object-top">
+                    <div class="portfolio-thumbnail relative overflow-hidden flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-slate-900 to-slate-800" style="height:200px;">
+                        <div class="text-5xl text-purple-400"><i class="fas fa-robot"></i></div>
+                        <div class="text-center px-4 relative z-10">
+                            <p class="text-xl font-bold text-white counter" data-target="60" data-suffix="%">60%</p>
+                            <p class="text-xs text-gray-400 mt-1">CS 응대 효율 / 만족도 40%↑</p>
+                        </div>
                         <div class="portfolio-overlay">
                             <i class="fas fa-expand text-white text-2xl"></i>
                             <span class="text-white font-semibold text-sm">클릭하여 상세 보기</span>
@@ -608,8 +671,12 @@
 
                 <div class="portfolio-card bg-slate-800/50 border border-indigo-500/20 rounded-xl overflow-hidden card-hover backdrop-blur reveal reveal-delay-1"
                      onclick="openModal('image/포트폴리오 7.png','전략적 파트너십 플랫폼 입점 전략 — 5만원으로 월 매출 8,000만원')">
-                    <div class="relative overflow-hidden" style="height:200px;">
-                        <img src="image/포트폴리오 7.png" alt="플랫폼 입점 전략" class="w-full h-full object-cover object-top">
+                    <div class="portfolio-thumbnail relative overflow-hidden flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-slate-900 to-slate-800" style="height:200px;">
+                        <div class="text-5xl text-yellow-400"><i class="fas fa-handshake"></i></div>
+                        <div class="text-center px-4 relative z-10">
+                            <p class="text-xl font-bold text-white counter" data-target="8000" data-suffix="만">8000만</p>
+                            <p class="text-xs text-gray-400 mt-1">월 매출 / 마케팅 예산 5만원</p>
+                        </div>
                         <div class="portfolio-overlay">
                             <i class="fas fa-expand text-white text-2xl"></i>
                             <span class="text-white font-semibold text-sm">클릭하여 상세 보기</span>
@@ -629,8 +696,12 @@
 
                 <div class="portfolio-card bg-slate-800/50 border border-indigo-500/20 rounded-xl overflow-hidden card-hover backdrop-blur reveal reveal-delay-2"
                      onclick="openModal('image/포트폴리오 8.png','GA4 데이터 분석 기반 웹사이트 최적화 및 광고 효율 개선')">
-                    <div class="relative overflow-hidden" style="height:200px;">
-                        <img src="image/포트폴리오 8.png" alt="GA4 웹사이트 최적화" class="w-full h-full object-cover object-top">
+                    <div class="portfolio-thumbnail relative overflow-hidden flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-slate-900 to-slate-800" style="height:200px;">
+                        <div class="text-5xl text-blue-400"><i class="fas fa-chart-line"></i></div>
+                        <div class="text-center px-4 relative z-10">
+                            <p class="text-xl font-bold text-white counter" data-target="30" data-suffix="%">30%</p>
+                            <p class="text-xs text-gray-400 mt-1">이탈률 감소 / 광고효율 20%↑</p>
+                        </div>
                         <div class="portfolio-overlay">
                             <i class="fas fa-expand text-white text-2xl"></i>
                             <span class="text-white font-semibold text-sm">클릭하여 상세 보기</span>
@@ -650,8 +721,12 @@
 
                 <div class="portfolio-card bg-slate-800/50 border border-indigo-500/20 rounded-xl overflow-hidden card-hover backdrop-blur reveal reveal-delay-3"
                      onclick="openModal('image/포트폴리오 9.png','인스타그램 & 블로그 브랜드 채널 운영')">
-                    <div class="relative overflow-hidden" style="height:200px;">
-                        <img src="image/포트폴리오 9.png" alt="SNS 블로그 운영" class="w-full h-full object-cover object-top">
+                    <div class="portfolio-thumbnail relative overflow-hidden flex flex-col items-center justify-center gap-3 bg-gradient-to-br from-slate-900 to-slate-800" style="height:200px;">
+                        <div class="text-5xl text-pink-400"><i class="fas fa-bullhorn"></i></div>
+                        <div class="text-center px-4 relative z-10">
+                            <p class="text-xl font-bold text-white counter" data-target="100" data-suffix="%">100%</p>
+                            <p class="text-xs text-gray-400 mt-1">브랜드 인지도 / 인플루언서 협업 운영</p>
+                        </div>
                         <div class="portfolio-overlay">
                             <i class="fas fa-expand text-white text-2xl"></i>
                             <span class="text-white font-semibold text-sm">클릭하여 상세 보기</span>
@@ -995,21 +1070,70 @@
     const modalImg   = document.getElementById('modal-img');
     const modalTitle = document.getElementById('modal-title');
     const modalClose = document.getElementById('modal-close');
+    const modalPrev  = document.getElementById('modal-prev');
+    const modalNext  = document.getElementById('modal-next');
+    const modalCounter = document.getElementById('modal-counter');
+
+    // 포트폴리오 이미지 배열 (순서대로)
+    const portfolioImages = [
+        { src: 'image/포트폴리오 4.png', title: 'Google Apps Script 기반 자동 발주 시스템 구축' },
+        { src: 'image/포트폴리오 5.png', title: '기술 협업 기반 고객 여정 자동화' },
+        { src: 'image/포트폴리오 7.png', title: '전략적 파트너십 플랫폼 입점 전략 — 5만원으로 월 매출 8,000만원' },
+        { src: 'image/포트폴리오 8.png', title: 'GA4 데이터 분석 기반 웹사이트 최적화 및 광고 효율 개선' },
+        { src: 'image/포트폴리오 9.png', title: '인스타그램 & 블로그 브랜드 채널 운영' }
+    ];
+
+    let currentImageIndex = 0;
 
     function openModal(src, title) {
-        modalImg.src        = src;
-        modalTitle.textContent = title;
+        // 현재 인덱스 찾기
+        currentImageIndex = portfolioImages.findIndex(img => img.src === src);
+        if (currentImageIndex === -1) currentImageIndex = 0;
+
+        updateModalImage();
         modal.classList.add('open');
         document.body.style.overflow = 'hidden';
     }
+
+    function updateModalImage() {
+        const current = portfolioImages[currentImageIndex];
+        modalImg.src = current.src;
+        modalTitle.textContent = current.title;
+        modalCounter.textContent = `${currentImageIndex + 1} / ${portfolioImages.length}`;
+
+        // 버튼 활성화/비활성화
+        modalPrev.disabled = currentImageIndex === 0;
+        modalNext.disabled = currentImageIndex === portfolioImages.length - 1;
+    }
+
     function closeModal() {
         modal.classList.remove('open');
         document.body.style.overflow = '';
     }
 
+    function showPrevImage() {
+        if (currentImageIndex > 0) {
+            currentImageIndex--;
+            updateModalImage();
+        }
+    }
+
+    function showNextImage() {
+        if (currentImageIndex < portfolioImages.length - 1) {
+            currentImageIndex++;
+            updateModalImage();
+        }
+    }
+
     modalClose.addEventListener('click', closeModal);
+    modalPrev.addEventListener('click', showPrevImage);
+    modalNext.addEventListener('click', showNextImage);
     modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeModal();
+        if (e.key === 'ArrowLeft') showPrevImage();
+        if (e.key === 'ArrowRight') showNextImage();
+    });
     </script>
 </body>
 </html>
